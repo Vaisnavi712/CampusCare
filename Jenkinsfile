@@ -2,6 +2,10 @@
 pipeline {
     agent any
 
+    environment {
+        PYTHON = 'C:\\Users\\vaishnavi\\AppData\\Local\\Programs\\Python\\Python312\\python.exe'
+    }
+
     stages {
         stage('Checkout') {
             steps {
@@ -12,13 +16,13 @@ pipeline {
 
         stage('Check Python') {
             steps {
-                bat 'py --version'
+                bat '"%PYTHON%" --version'
             }
         }
 
         stage('Install Dependencies') {
             steps {
-                bat 'py -m venv .venv'
+                bat '"%PYTHON%" -m venv .venv'
                 bat '.venv\\Scripts\\python -m pip install -r requirements.txt'
             }
         }
@@ -39,4 +43,5 @@ pipeline {
         }
     }
 }
+
 
