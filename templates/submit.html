@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Report an issue | CampusCare{% endblock %}
+{% block content %}
+<section class="form-layout">
+  <div class="form-intro">
+    <span class="eyebrow">NEW SUPPORT REQUEST</span>
+    <h1>Tell us what's<br><span>not working.</span></h1>
+    <p>Share a few details so the campus IT team can understand and address your issue.</p>
+    <div class="info-note"><strong>Tip</strong><br>Include the room or lab number and any error message you see. Please do not include passwords.</div>
+  </div>
+  <form class="panel form-panel" method="post">
+    <h2>Issue details</h2>
+    <label for="student_name">Your name</label>
+    <input id="student_name" name="student_name" maxlength="100" required placeholder="Enter your full name">
+    <label for="email">College email address</label>
+    <input id="email" name="email" type="email" maxlength="254" required placeholder="you@example.edu">
+    <label for="category">Issue category</label>
+    <select id="category" name="category" required>
+      <option value="">Choose a category</option>
+      {% for category in categories %}<option value="{{ category }}">{{ category }}</option>{% endfor %}
+    </select>
+    <label for="description">Describe the issue</label>
+    <textarea id="description" name="description" rows="5" maxlength="2000" required placeholder="What happened? Where did it happen?"></textarea>
+    <button class="btn primary full" type="submit">Submit support ticket →</button>
+  </form>
+</section>
+{% endblock %}

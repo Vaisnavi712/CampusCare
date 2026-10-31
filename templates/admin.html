@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}Admin dashboard | CampusCare{% endblock %}
+{% block content %}
+<div class="admin-heading"><div><span class="eyebrow">STAFF WORKSPACE</span><h1>Support tickets</h1><p>Review requests and keep their status up to date.</p></div><span class="admin-count">{{ tickets|length }} tickets</span></div>
+<div class="panel table-panel">
+  {% if tickets %}
+  <div class="table-scroll"><table>
+    <thead><tr><th>Ticket</th><th>Student</th><th>Issue</th><th>Submitted</th><th>Update status</th></tr></thead>
+    <tbody>
+    {% for ticket in tickets %}
+      <tr>
+        <td><strong>#{{ ticket.id }}</strong><small>{{ ticket.email }}</small></td>
+        <td>{{ ticket.student_name }}</td>
+        <td><strong>{{ ticket.category }}</strong><small>{{ ticket.description }}</small><span class="priority priority-{{ ticket.priority|lower }}">{{ ticket.priority }} priority</span></td>
+        <td>{{ ticket.created_at }}</td>
+        <td>
+          <form method="post" class="ticket-update">
+            <input type="hidden" name="ticket_id" value="{{ ticket.id }}">
+            <select name="status" aria-label="Status for ticket {{ ticket.id }}">
+              {% for status in statuses %}<option value="{{ status }}" {% if ticket.status == status %}selected{% endif %}>{{ status }}</option>{% endfor %}
+            </select>
+            <select name="priority" aria-label="Priority for ticket {{ ticket.id }}">
+              {% for priority in priorities %}<option value="{{ priority }}" {% if ticket.priority == priority %}selected{% endif %}>{{ priority }}</option>{% endfor %}
+            </select>
+            <button class="btn small primary" type="submit">Save</button>
+          </form>
+        </td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table></div>
+  {% else %}
+    <div class="empty-state"><div>○</div><h2>No tickets yet</h2><p>New student support requests will appear here.</p></div>
+  {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,16 @@
+services:
+  campuscare:
+    build: .
+    image: campuscare:latest
+    container_name: campuscare
+    ports:
+      - "5000:5000"
+    environment:
+      CAMPUSCARE_SECRET_KEY: ${CAMPUSCARE_SECRET_KEY:-local-demo-secret-change-before-deployment}
+      CAMPUSCARE_ADMIN_PASSWORD: ${CAMPUSCARE_ADMIN_PASSWORD:-admin123}
+    volumes:
+      - campuscare_data:/data
+    restart: unless-stopped
+
+volumes:
+  campuscare_data:

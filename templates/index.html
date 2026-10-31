@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block title %}Home | CampusCare{% endblock %}
+{% block content %}
+<section class="hero">
+  <div class="hero-copy">
+    <span class="eyebrow">CAMPUS IT SUPPORT, MADE SIMPLE</span>
+    <h1>Technology issues?<br><span>We've got you.</span></h1>
+    <p>Report campus Wi-Fi, lab computer, software, projector and printer issues in one place. Track your ticket until it is resolved.</p>
+    <div class="hero-actions">
+      <a class="btn primary" href="{{ url_for('submit') }}">Report an issue <span>→</span></a>
+      <a class="btn outline" href="{{ url_for('track') }}">Track a ticket</a>
+    </div>
+  </div>
+  <div class="hero-art" aria-hidden="true">
+    <div class="art-circle"></div>
+    <div class="art-card">
+      <div class="art-icon">✓</div>
+      <div><strong>Support request</strong><small>Ready to be tracked</small></div>
+      <span class="art-status">OPEN</span>
+    </div>
+    <div class="art-dots">✳</div>
+  </div>
+</section>
+
+<section class="stats-section">
+  <div class="section-heading">
+    <div><span class="eyebrow">LIVE OVERVIEW</span><h2>Helpdesk at a glance</h2></div>
+    <p>Current ticket summary</p>
+  </div>
+  <div class="stats-grid">
+    <article class="stat-card"><span class="stat-label">Total tickets</span><strong>{{ counts.total }}</strong><span class="stat-note">All reported issues</span></article>
+    <article class="stat-card"><span class="stat-label">Pending</span><strong>{{ counts.pending }}</strong><span class="stat-note">Waiting for action</span></article>
+    <article class="stat-card"><span class="stat-label">In progress</span><strong>{{ counts.progress }}</strong><span class="stat-note">Being worked on</span></article>
+    <article class="stat-card"><span class="stat-label">Resolved</span><strong>{{ counts.resolved }}</strong><span class="stat-note">Successfully completed</span></article>
+  </div>
+</section>
+
+<section class="how-section">
+  <span class="eyebrow">HOW IT WORKS</span>
+  <h2>Support in three simple steps</h2>
+  <div class="steps-grid">
+    <article><span>01</span><h3>Report</h3><p>Describe your technical issue and submit a support ticket.</p></article>
+    <article><span>02</span><h3>Track</h3><p>Use your ticket ID and email address to check progress.</p></article>
+    <article><span>03</span><h3>Resolve</h3><p>The support team updates the status as the issue is handled.</p></article>
+  </div>
+</section>
+{% endblock %}

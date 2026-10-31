@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Admin sign in | CampusCare{% endblock %}
+{% block content %}
+<section class="narrow-content">
+  <div class="page-heading"><span class="eyebrow">STAFF ACCESS</span><h1>Admin sign in.</h1><p>Sign in to review incoming campus IT support tickets.</p></div>
+  <form class="panel form-panel" method="post">
+    <label for="password">Admin password</label>
+    <input id="password" name="password" type="password" required autocomplete="current-password">
+    <button class="btn primary full" type="submit">Sign in →</button>
+    <p class="form-hint">Demo password is documented in the README. Change it before any real deployment.</p>
+  </form>
+</section>
+{% endblock %}

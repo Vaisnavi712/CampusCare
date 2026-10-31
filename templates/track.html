@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Track a ticket | CampusCare{% endblock %}
+{% block content %}
+<section class="narrow-content">
+  <div class="page-heading"><span class="eyebrow">TICKET LOOKUP</span><h1>Track your request.</h1><p>Enter the ticket number and the email address used when reporting the issue.</p></div>
+  <form class="panel form-panel" method="post">
+    <label for="ticket_id">Ticket ID</label>
+    <input id="ticket_id" name="ticket_id" type="number" min="1" required placeholder="e.g. 12">
+    <label for="email">Email address</label>
+    <input id="email" name="email" type="email" required placeholder="you@example.edu">
+    <button class="btn primary full" type="submit">Find my ticket →</button>
+  </form>
+  {% if ticket %}
+  <article class="panel result-panel">
+    <div class="result-top"><div><span class="eyebrow">TICKET #{{ ticket.id }}</span><h2>{{ ticket.category }}</h2></div><span class="status status-{{ ticket.status|lower|replace(' ', '-') }}">{{ ticket.status }}</span></div>
+    <p>{{ ticket.description }}</p>
+    <div class="result-meta"><span>Priority: <strong>{{ ticket.priority }}</strong></span><span>Submitted: {{ ticket.created_at }}</span></div>
+  </article>
+  {% endif %}
+</section>
+{% endblock %}
