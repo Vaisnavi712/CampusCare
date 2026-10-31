@@ -1,64 +1,42 @@
+
 pipeline {
     agent any
-
-    environment {
-        VENV_DIR = ".venv"
-    }
 
     stages {
         stage('Checkout') {
             steps {
+                echo 'Checking out CampusCare source code'
                 checkout scm
             }
         }
 
-        stage('Install dependencies') {
+        stage('Check Python') {
             steps {
-                script {
-                    if (isUnix()) {
-                        sh 'python3 -m venv .venv'
-                        sh '.venv/bin/python -m pip install --upgrade pip'
-                        sh '.venv/bin/python -m pip install -r requirements.txt'
-                    } else {
-                        bat 'py -m venv .venv'
-                        bat '.venv\\Scripts\\python -m pip install --upgrade pip'
-                        bat '.venv\\Scripts\\python -m pip install -r requirements.txt'
-                    }
-                }
+                bat 'py --version'
             }
         }
 
-        stage('Automated tests') {
+        stage('Install Dependencies') {
             steps {
-                script {
-                    if (isUnix()) {
-                        sh '.venv/bin/python -m unittest discover -s tests -v'
-                    } else {
-                        bat '.venv\\Scripts\\python -m unittest discover -s tests -v'
-                    }
-                }
+                bat 'py -m venv .venv'
+                bat '.venv\\Scripts\\python -m pip install -r requirements.txt'
             }
         }
 
-        stage('Build Docker image') {
+        stage('Run Automated Tests') {
             steps {
-                script {
-                    if (isUnix()) {
-                        sh 'docker build -t campuscare:latest .'
-                    } else {
-                        bat 'docker build -t campuscare:latest .'
-                    }
-                }
+                bat '.venv\\Scripts\\python -m unittest discover -s tests -v'
             }
         }
     }
 
     post {
         success {
-            echo 'CampusCare pipeline completed: tests passed and Docker image built.'
+            echo 'CampusCare CI pipeline completed successfully!'
         }
         failure {
-            echo 'CampusCare pipeline failed. Review the stage logs and fix the issue.'
+            echo 'CampusCare CI pipeline failed. Check the console output.'
         }
     }
 }
+
